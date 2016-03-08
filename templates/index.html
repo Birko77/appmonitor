@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <meta name="description" content="A admin dashboard that displays user related data and statistics." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Codeply">
+
+
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="static/css/styles.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- GOOGLE CHARTS API -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <!-- GOOGLE CHARTS API END -->
+
+  </head>
+  <body >
+    <nav class="navbar navbar-fixed-top navbar-dark bg-primary light_blue">
+        <button class="navbar-toggler hidden-sm-up pull-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            ☰
+        </button>
+        <a class="navbar-brand" href="#">BRAND</a>
+        <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
+            <ul class="nav navbar-nav pull-right">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#users">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#posts">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#chat_messages">Chat Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#chat_messages">Network Activity</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+<div class="container-fluid" id="main">
+    <div class="row row-offcanvas row-offcanvas-left">
+        <div class="col-lg-12 main">
+
+            <h1 class="display-1 hidden-xs-down">
+                Dashboard
+            </h1>
+
+            <ul id="tabsJustified" class="nav nav-tabs nav-justified">
+                <li class="nav-item">
+                    <a class="nav-link active" href="" data-target="#tab1" data-toggle="tab">Today</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" data-target="#tab2" data-toggle="tab">Last Week</a>
+                </li>
+            </ul>
+
+            <!--/tabs-->
+            <br>
+            <div id="tabsJustifiedContent" class="tab-content">
+                <div class="tab-pane fade active in" id="tab1">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card card-inverse card-success">
+                                <div class="card-block bg-success">
+                                    <div class="rotate">
+                                        <i class="fa fa-user fa-5x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">New Users</h6>
+                                    <h1 class="display-1" id="new_users_today">0</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card card-inverse card-danger">
+                                <div class="card-block bg-danger">
+                                    <div class="rotate">
+                                        <i class="fa fa-user fa-5x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Active Users</h6>
+                                    <h1 class="display-1" id="active_users_today">0</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card card-inverse card-info">
+                                <div class="card-block bg-info">
+                                    <div class="rotate">
+                                        <i class="fa fa-square fa-5x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Posts</h6>
+                                    <h1 class="display-1" id="posts_today">0</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card card-inverse card-warning">
+                                <div class="card-block bg-warning">
+                                    <div class="rotate">
+                                        <i class="fa fa-comments fa-4x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Chat Messages</h6>
+                                    <h1 class="display-1" id="chat_messages_today">0</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab2">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card card-inverse card-success">
+                                <div class="card-block bg-success">
+                                    <div class="rotate">
+                                        <i class="fa fa-user fa-5x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">New Users</h6>
+                                    <h1 class="display-1" id="new_users_last_week">0</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card card-inverse card-danger">
+                                <div class="card-block bg-danger">
+                                    <div class="rotate">
+                                        <i class="fa fa-user fa-5x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Active Users</h6>
+                                    <h1 class="display-1" id="active_users_last_week">0</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card card-inverse card-info">
+                                <div class="card-block bg-info">
+                                    <div class="rotate">
+                                        <i class="fa fa-square fa-5x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Posts</h6>
+                                    <h1 class="display-1" id="posts_last_week">0</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card card-inverse card-warning">
+                                <div class="card-block bg-warning">
+                                    <div class="rotate">
+                                        <i class="fa fa-comments fa-4x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Chat Messages</h6>
+                                    <h1 class="display-1" id="chat_messages_last_week">0</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul id="tabsJustified" class="nav nav-tabs nav-justified">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="" data-target="#tab3" data-toggle="tab">Today</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-target="#tab4" data-toggle="tab">Last Week</a>
+                        </li>
+                    </ul>
+
+                    <!--/tabs-->
+                    <br>
+                    <div id="tabsJustifiedContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="tab3">
+                            <div id="new_users_today_div"></div>
+                            Map: New Users by State today
+                        </div>
+                        <div class="tab-pane fade active in" id="tab4">
+                            <div id="new_users_last_week_div"></div>
+                            Map: New Users by State last week
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ul id="tabsJustified" class="nav nav-tabs nav-justified">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="" data-target="#tab5" data-toggle="tab">Today</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-target="#tab6" data-toggle="tab">Last Week</a>
+                        </li>
+                    </ul>
+
+                    <!--/tabs-->
+                    <br>
+                    <div id="tabsJustifiedContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="tab5">
+                            <div id="active_users_today_div"></div>
+                            Map: Active Users by State today
+                        </div>
+                        <div class="tab-pane fade active in" id="tab6">
+                            <div id="active_users_last_week_div"></div>
+                            Map: Active Users by State last week
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="curve_chart_active_users_last_month"></div>
+                    Graph: Active users per day over the last month
+                </div>
+                <div class="col-lg-6">
+                    <div id="curve_chart_requests_last_month"></div>
+                    Graph: Requests per day over the last month
+                </div>
+            </div> 
+            <hr>
+
+        </div>
+        <!--/main col-->
+    </div>
+
+</div>
+<!--/.container-->
+<footer class="container-fluid">
+    <p class="text-right small">©2016 BRAND</p>
+</footer>
+
+
+    <!--scripts loaded here-->
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    
+    <script src="static/js/scripts.js"></script>
+
+
+    <!-- populate cards -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            /*load data from server*/
+            $.post("/get_data",
+                {
+                    time_period: "1",
+                    region: "US_accumulated",
+                    per_day: "False"
+                },
+                function(data, status){
+                    $("#new_users_today").text(data["new_users"]);
+                    $("#active_users_today").text(data["active_users"]);
+                    $("#posts_today").text(data["posts"]);
+                    $("#chat_messages_today").text(data["chat_messages"]);
+                }
+            );
+
+            /*load data from server*/
+            $.post("/get_data",
+                {
+                    time_period: "7",
+                    region: "US_accumulated",
+                    per_day: "False"
+                },
+                function(data, status){
+                    $("#new_users_last_week").text(data["new_users"]);
+                    $("#active_users_last_week").text(data["active_users"]);
+                    $("#posts_last_week").text(data["posts"]);
+                    $("#chat_messages_last_week").text(data["chat_messages"]);
+                }
+            );
+        });
+    </script>
+
+
+
+    <!-- draw maps -->
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+            google.charts.load('current', {'packages':['geochart','corechart']});
+
+            /*load data from server*/
+            $.post("/get_data",
+                {
+                    time_period: "7",
+                    region: "all_states_separate",
+                    per_day: "False"
+                },
+                function(data, status){
+                    
+                    var json_obj = data;
+                    
+                    var new_users_input_data = [['State', 'New Users']];
+                    for (item in json_obj) {
+                        var chart_data_item = ["US-"+json_obj[item]["state"], json_obj[item]["new_users"]];
+                        new_users_input_data.push(chart_data_item);
+                    }
+
+                    var active_users_input_data = [['Day', 'Active Users']];
+                    for (item in json_obj) {
+                        var chart_data_item = ["US-"+json_obj[item]["state"], json_obj[item]["active_users"]];
+                        active_users_input_data.push(chart_data_item);
+                    }
+
+                    google.charts.setOnLoadCallback(drawRegionsMaps);
+
+                    function drawRegionsMaps() {
+
+                        /* Data for new_users_last_week */
+                        var data_new_users_last_week = google.visualization.arrayToDataTable(new_users_input_data);
+
+                        /* Data for active_users_last_week */
+                        var data_active_users_last_week = google.visualization.arrayToDataTable(active_users_input_data);
+
+                        var options = {region: 'US',
+                                        resolution: 'provinces'};
+
+                        /* Draw map for new_users_last_week */
+                        var chart = new google.visualization.GeoChart(document.getElementById('new_users_last_week_div'));
+                        chart.draw(data_new_users_last_week, options);
+
+                        /* Remove "active" and "in" classes. These clases have been added to achive equal formating for all maps. */
+                        $("#tab4").removeClass("active");
+                        $("#tab4").removeClass("in");
+
+                        /* Draw map for active_users_last_week */
+                        var chart = new google.visualization.GeoChart(document.getElementById('active_users_last_week_div'));
+                        chart.draw(data_active_users_last_week, options);
+
+                        /* Remove "active" and "in" classes. These clases have been added to achive equal formating for all maps. */
+                        $("#tab6").removeClass("active");
+                        $("#tab6").removeClass("in");
+
+                    }
+
+                }
+            );
+
+            /*load data from server*/
+            $.post("/get_data",
+                {
+                    time_period: "1",
+                    region: "all_states_separate",
+                    per_day: "False"
+                },
+                function(data, status){
+                    
+                    var json_obj = data;
+                    
+                    var new_users_input_data = [['State', 'New Users']];
+                    for (item in json_obj) {
+                        var chart_data_item = ["US-"+json_obj[item]["state"], json_obj[item]["new_users"]];
+                        new_users_input_data.push(chart_data_item);
+                    }
+
+                    var active_users_input_data = [['Day', 'Active Users']];
+                    for (item in json_obj) {
+                        var chart_data_item = ["US-"+json_obj[item]["state"], json_obj[item]["active_users"]];
+                        active_users_input_data.push(chart_data_item);
+                    }
+
+                    google.charts.setOnLoadCallback(drawRegionsMaps);
+
+                    function drawRegionsMaps() {
+
+                        /* Data for new_users_last_week */
+                        var data_new_users_today = google.visualization.arrayToDataTable(new_users_input_data);
+
+                        /* Data for active_users_last_week */
+                        var data_active_users_today = google.visualization.arrayToDataTable(active_users_input_data);
+
+                        var options = {region: 'US',
+                                        resolution: 'provinces'};
+
+                        /* Draw map for new_users_last_week */
+                        var chart = new google.visualization.GeoChart(document.getElementById('new_users_today_div'));
+                        chart.draw(data_new_users_today, options);
+
+                        /* Draw map for active_users_last_week */
+                        var chart = new google.visualization.GeoChart(document.getElementById('active_users_today_div'));
+                        chart.draw(data_active_users_today, options);
+                    }
+                }
+            );
+
+
+        });
+    </script>
+
+
+    <!-- draw graphs -->
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+            /*load data from server*/
+            $.post("/get_data",
+                {
+                    time_period: "30",
+                    region: "US_accumulated",
+                    per_day: "True"
+                },
+                function(data, status){
+                    
+                    var json_obj = data;
+                    
+                    var active_users_input_data = [['Day', 'Active Users']];
+                    for (item in json_obj) {
+                        var chart_data_item = [json_obj[item]["date"], json_obj[item]["active_users"]];
+                        active_users_input_data.push(chart_data_item);
+                    }
+
+                    var requests_input_data = [['Day', 'Requests']];
+                    for (item in json_obj) {
+                        var chart_data_item = [json_obj[item]["date"], json_obj[item]["requests"]];
+                        requests_input_data.push(chart_data_item);
+                    }
+
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+
+                        /* Data for chart Active Users over the last month */
+                        var data_active_users_last_month = google.visualization.arrayToDataTable(active_users_input_data);
+
+                        /* Data for chart Request over the last month */
+                        var data_requests_last_month = google.visualization.arrayToDataTable(requests_input_data);
+
+
+                        var options = {
+                            legend: { position: 'bottom' }
+                        };
+
+                        /* Draw chart for active_users_last_month */
+                        var chart = new google.visualization.LineChart(document.getElementById('curve_chart_active_users_last_month'));
+                        chart.draw(data_active_users_last_month, options);
+
+                        /* Draw chart for requests_last_month */
+                        var chart = new google.visualization.LineChart(document.getElementById('curve_chart_requests_last_month'));
+                        chart.draw(data_requests_last_month, options);
+
+                    }
+                    
+                }
+            );
+        });
+    </script>
+
+
+
+
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            /* change color to light blue */
+            $(".light_blue").css("cssText", "background-color: #3D9BE9 !important;");
+        });
+    </script>
+
+
+
+  </body>
+</html>
