@@ -1,5 +1,6 @@
 import logging
 from datetime import date, timedelta
+from random import randint
 import json
 from handler import Handler
 
@@ -11,9 +12,51 @@ class IndexHandler(Handler):
         self.render('index.html')
 
 
+class FillDBHandler(Handler):
+    def get(self):
+        states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+        i=0
+        while i<=30:
+            for state in states:
+                u = Data(date = date.today() - timedelta(days=(i)),
+                         state = state,
+                         new_users = randint(10,20),
+                         active_users = randint(40,50),
+                         posts = randint(20,30),
+                         chat_messages = randint(40,60),
+                         requests = randint(400,600))
+                u.put()
+            i += 1
+        self.redirect("/")
+
+class specialFillDBHandler(Handler):
+    def get(self):
+        states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+        i=0
+        while i<=10:
+            for state in states:
+                u = Data(date = date.today() - timedelta(days=(i+22)),
+                         state = state,
+                         new_users = randint(10,20),
+                         active_users = randint(40,50),
+                         posts = randint(20,30),
+                         chat_messages = randint(40,60),
+                         requests = randint(400,600))
+                u.put()
+            i += 1
+        self.redirect("/")
+
+class deleteDBHandler(Handler):
+    def get(self):
+        Data.delete_all_data()
+        self.redirect("/")
+
+
+
 
 class DataHandler(Handler):
-    def post(self):
+
+    def get(self):
         time_period = int(self.request.get('time_period')) # Number of days (integer)
         region = self.request.get('region') #'US_accumulated' or 'all_states_separate'
         per_day = self.request.get('per_day') #True or False
@@ -33,6 +76,7 @@ class DataHandler(Handler):
                                          'posts':raw_data_item.posts, 
                                          'chat_messages':raw_data_item.chat_messages, 
                                          'requests':raw_data_item.requests})
+                        logging.error(json_obj)
                     else:
                         for json_obj_item in json_obj:
                             if str(raw_data_item.date) == json_obj_item['date']:
@@ -52,6 +96,7 @@ class DataHandler(Handler):
                                 break
                 global json
                 json_string = json.dumps(json_obj)
+                logging.error(json_string)
                 self.response.headers['Content-Type'] = 'application/json'
                 self.response.write(json_string)
                 return
@@ -83,6 +128,7 @@ class DataHandler(Handler):
                                          'posts':raw_data_item.posts, 
                                          'chat_messages':raw_data_item.chat_messages, 
                                          'requests':raw_data_item.requests})
+                        logging.error(json_obj)
                     else:
                         for json_obj_item in json_obj:
                             if raw_data_item.state == json_obj_item['state']:
@@ -108,6 +154,7 @@ class DataHandler(Handler):
 
         else:
             return
+
 
 
 

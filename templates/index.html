@@ -253,12 +253,7 @@
         $(document).ready(function(){
 
             /*load data from server*/
-            $.post("/get_data",
-                {
-                    time_period: "1",
-                    region: "US_accumulated",
-                    per_day: "False"
-                },
+            $.get("/get_data?time_period=1&region=US_accumulated&per_day=False",
                 function(data, status){
                     $("#new_users_today").text(data["new_users"]);
                     $("#active_users_today").text(data["active_users"]);
@@ -268,12 +263,7 @@
             );
 
             /*load data from server*/
-            $.post("/get_data",
-                {
-                    time_period: "7",
-                    region: "US_accumulated",
-                    per_day: "False"
-                },
+            $.get("/get_data?time_period=7&region=US_accumulated&per_day=False",
                 function(data, status){
                     $("#new_users_last_week").text(data["new_users"]);
                     $("#active_users_last_week").text(data["active_users"]);
@@ -294,12 +284,7 @@
             google.charts.load('current', {'packages':['geochart','corechart']});
 
             /*load data from server*/
-            $.post("/get_data",
-                {
-                    time_period: "7",
-                    region: "all_states_separate",
-                    per_day: "False"
-                },
+            $.get("/get_data?time_period=7&region=all_states_separate&per_day=False",
                 function(data, status){
                     
                     var json_obj = data;
@@ -351,12 +336,7 @@
             );
 
             /*load data from server*/
-            $.post("/get_data",
-                {
-                    time_period: "1",
-                    region: "all_states_separate",
-                    per_day: "False"
-                },
+            $.get("/get_data?time_period=1&region=all_states_separate&per_day=False",
                 function(data, status){
                     
                     var json_obj = data;
@@ -408,12 +388,7 @@
         $(document).ready(function(){
 
             /*load data from server*/
-            $.post("/get_data",
-                {
-                    time_period: "30",
-                    region: "US_accumulated",
-                    per_day: "True"
-                },
+            $.get("/get_data?time_period=30&region=US_accumulated&per_day=True",
                 function(data, status){
                     
                     var json_obj = data;
