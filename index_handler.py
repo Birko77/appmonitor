@@ -1,6 +1,5 @@
 import logging
 from datetime import date, timedelta
-from random import randint
 import json
 from handler import Handler
 
@@ -10,47 +9,6 @@ from database import Data
 class IndexHandler(Handler):
     def get(self):
         self.render('index.html')
-
-
-class FillDBHandler(Handler):
-    def get(self):
-        states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
-        i=0
-        while i<=30:
-            for state in states:
-                u = Data(date = date.today() - timedelta(days=(i)),
-                         state = state,
-                         new_users = randint(10,20),
-                         active_users = randint(40,50),
-                         posts = randint(20,30),
-                         chat_messages = randint(40,60),
-                         requests = randint(400,600))
-                u.put()
-            i += 1
-        self.redirect("/")
-
-class specialFillDBHandler(Handler):
-    def get(self):
-        states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
-        i=0
-        while i<=10:
-            for state in states:
-                u = Data(date = date.today() - timedelta(days=(i+22)),
-                         state = state,
-                         new_users = randint(10,20),
-                         active_users = randint(40,50),
-                         posts = randint(20,30),
-                         chat_messages = randint(40,60),
-                         requests = randint(400,600))
-                u.put()
-            i += 1
-        self.redirect("/")
-
-class deleteDBHandler(Handler):
-    def get(self):
-        Data.delete_all_data()
-        self.redirect("/")
-
 
 
 
